@@ -1,78 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-abstract class Vegetable
-{
-    public string Name { get; protected set; }
-    protected decimal BasePrice;
-    public abstract decimal GetPrice();
-    public abstract string GetInfo();
-}
-
-class PieceVegetable : Vegetable
-{
-    private int Quantity;
-
-    public PieceVegetable(string name, decimal basePrice, int quantity)
-    {
-        Name = name;
-        BasePrice = basePrice;
-        Quantity = quantity;
-    }
-
-    public override decimal GetPrice() => BasePrice * Quantity;
-
-    public override string GetInfo() =>
-        $"{Name}: {Quantity} pcs, {BasePrice:C}, total: {GetPrice():C}";
-}
-
-class KiloVegetable : Vegetable
-{
-    private double Kilograms;
-
-    public KiloVegetable(string name, decimal basePrice, double kilograms)
-    {
-        Name = name;
-        BasePrice = basePrice;
-        Kilograms = kilograms;
-    }
-
-    public override decimal GetPrice() => BasePrice * (decimal)Kilograms;
-
-    public override string GetInfo() =>
-        $"{Name}: {Kilograms} kg, {BasePrice:C}/kg, total: {GetPrice():C}";
-}
-
-class VegetableShop
-{
-    private List<Vegetable> products = new List<Vegetable>();
-
-    public void AddProduct(Vegetable vegetable)
-    {
-        products.Add(vegetable);
-        Console.WriteLine($"{vegetable.Name} added to the shop");
-    }
-
-    public void AddProducts(List<Vegetable> initialProducts)
-    {
-        products.AddRange(initialProducts);
-    }
-
-    public void DisplayProducts()
-    {
-        Console.WriteLine("Product list");
-        decimal total = 0;
-
-        foreach (var veg in products)
-        {
-            Console.WriteLine(veg.GetInfo());
-            total += veg.GetPrice();
-        }
-
-        Console.WriteLine($"Total price: {total:C}");
-    }
-}
-
 class Program
 {
     static void Main()
@@ -130,7 +58,7 @@ class Program
             return;
         }
 
-        Console.Write("Is this product sold by kg(yes or no)?");
+        Console.Write("Is this product sold by kg (yes or no)? ");
         string unit = Console.ReadLine().ToLower();
 
         if (unit == "yes")
